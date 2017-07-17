@@ -5,6 +5,7 @@
 """
 
 import boto3
+import botocore
 import click
 import time
 import sys
@@ -27,7 +28,8 @@ nagios_codes = {
 class DBSnapshot(object):
     """DBSnapshot"""
 
-    def __init__(self):
+    def __init__(self, region="eu-west-1"):
+        botocore.config.Config(region_name=region)
         self.client = boto3.client('rds')
 
     def newest_snapshot(self, db_instance):
